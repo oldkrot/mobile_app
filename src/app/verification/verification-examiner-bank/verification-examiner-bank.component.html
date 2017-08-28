@@ -1,0 +1,63 @@
+<form dir="rtl" style="margin-top:20px;height:100%;width:100%">
+  <div dir="rtl" style="margin-top:20px;height:80%;width:100%" align="center">
+    <div class="row" style="width:90%;">
+      <div class="sel-wrap" id="bankdiv">
+        <md-input-container>
+          <input mdInput placeholder="בנק" [formControl]="bankControl" #bankAutoCompleteInput [mdAutocomplete]="autoBank" [(ngModel)]="selectedBank.Name">
+
+        </md-input-container>
+        <md-autocomplete #autoBank="mdAutocomplete" name="abank" id="abank" style="width:100%; height:90%;" (onSelected)="bankChange($event)">
+          <md-option *ngFor="let b of filteredBanks | async" [value]="b">
+            {{ b.Name }}
+          </md-option>
+        </md-autocomplete>
+      </div>
+    </div>
+    <div class="row" style="width:90%;">
+      <div class="sel-wrap" id="branchdiv">
+        <md-input-container>
+          <input mdInput placeholder="סניף" [formControl]="branchControl" #branchAutoCompleteInput [mdAutocomplete]="autoBranch" [(ngModel)]="selectedBranch.Name">
+        </md-input-container>
+        <md-autocomplete #autoBranch="mdAutocomplete" name="abranch" id="abranch" style="width:100%; height:90%;" (onSelected)="branchChange($event)">
+          <md-option *ngFor="let br of filteredBranches | async" [value]="br">
+            {{ br.Name }}
+          </md-option>
+        </md-autocomplete>
+      </div>
+    </div>
+    <div class="row" style="width:90%;">
+      <div class="colc-40 col-centered">
+        <md-input-container>
+          <input mdInput placeholder="חשבון" id="BankAccount" name="BankAccount" value="examinerBank.BankAccount" [(ngModel)]="examinerBank.BankAccount"
+            (change)="changeModel">
+        </md-input-container>
+      </div>
+    </div>
+    <div class="row" style="width:90%;" align="center" *ngIf="examinerBank.isChanged===true">
+      <div class="colc-90 col-centered" align="center">
+        <label for="bankFiles" class="btn btn-warning shadow" style="height:40px;margin-bottom:20px; color:white;padding-top:10px;font-weight:bolder;position:relative;top:40px;font-size:16px;width:100%;right:0%">
+                <span class="glyphicon" style="font-size:16px;margin-left:15px">&#xe046;</span>העלאת צילום שיק</label>
+        <input appLoadImageData id="bankFiles" type="file" accept="image/*;capture=camera" style="visibility:hidden;" (change)="change($event)">
+      </div>
+    </div>
+    <div class="row row-centered" style="width:90%;height:20%;" align="center" dir="rtl">
+      <div class="col-xs-2 col-centered">
+        <button id="btnNext" class="custom-success button btn-round shadow" (click)="navigate(5)">
+        <i id="I2" style="font-size:16px;font-weight:900;font-style:normal" class="glyphicon glyphicon-triangle-left"></i>
+      </button>
+      </div>
+      <div class="col-xs-2 col-centered"></div>
+      <div class="col-xs-2 col-centered">
+        <button id="btnHelp" class="btn-help button btn-round shadow" (click)="navigate(0)">
+        <i id="I3" style="font-size:16px;font-weight:900;color:#2199e8;font-style:normal">?</i>
+      </button>
+      </div>
+      <div class="col-xs-2 col-centered"></div>
+      <div class="col-xs-2 col-centered">
+        <button id="btnPrevious" class="custom-success button btn-round shadow" (click)="navigate(3)">
+        <i id="I4" style="font-size:16px;font-weight:900;font-style:normal" class="glyphicon glyphicon-triangle-right"></i>
+      </button>
+      </div>
+    </div>
+  </div>
+</form>

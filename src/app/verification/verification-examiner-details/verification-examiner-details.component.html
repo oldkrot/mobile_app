@@ -1,0 +1,49 @@
+<form dir="rtl" style="margin-top:20px;height:100%;width:100%">
+  <div dir="rtl" style="margin-top:20px;height:80%;width:100%" align="center">
+    <div class="row" style="width:90%;">
+      <div class="colc-40 col-centered">
+        <md-input-container>
+          <input mdInput placeholder="ת.ז." id="identity" name="identity" value="examiner.IdentityCard" [(ngModel)]="examiner.IdentityCard"
+            (change)="changeModel">
+        </md-input-container>
+      </div>
+      <div class="colc-45 col-centered">
+        <md-input-container>
+          <input mdInput placeholder="משפחה" id="lastname" name="lastname" value="examiner.LastName" [(ngModel)]="examiner.LastName"
+            (change)="changeModel">
+        </md-input-container>
+      </div>
+      <div class="colc-45 col-centered">
+        <md-input-container>
+          <input mdInput placeholder="פרטי" id="firstname" name="firstname" value="examiner.FirstName" [(ngModel)]="examiner.FirstName"
+            (change)="changeModel">
+        </md-input-container>
+      </div>
+    </div>
+    <div class="row" style="width:90%;">
+      <div class="colc-90 col-centered">
+        <md-input-container>
+          <input mdInput [mdDatepickerFilter]="myFilter" [mdDatepicker]="picker" id="birthdate" name="birthdate" placeholder="ת. לידה"
+            [value]="this.examiner.BirthDate | date:'MM/dd/yyyy'" [min]="minDate" [max]="maxDate">
+          <button mdSuffix [mdDatepickerToggle]="picker"></button>
+        </md-input-container>
+        <md-datepicker #picker></md-datepicker>
+      </div>
+    </div>
+    <div class="row row-centered" style="width:90%;height:20%; margin-top:20px;" align="center" dir="rtl">
+      <div class="col-xs-2 col-centered">
+        <button id="btnNext" class="custom-success button btn-round shadow" (click)="navigate(2)">
+        <i id="I2" style="font-size:16px;font-weight:900;font-style:normal" class="glyphicon glyphicon-triangle-left"></i>
+      </button>
+      </div>
+      <div class="col-xs-2 col-centered"></div>
+      <div class="col-xs-2 col-centered">
+        <button id="btnHelp" class="btn-help button btn-round shadow" (click)="navigate(0)">
+        <i id="I3" style="font-size:16px;font-weight:900;color:#2199e8;font-style:normal">?</i>
+      </button>
+      </div>
+      <div class="col-xs-2 col-centered"></div>
+      <div class="col-xs-2 col-centered"></div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,46 @@
+<div dir="rtl" style="margin-top:20px;height:100%;width:100%;" align="center">
+  <div style="width:100%;height:80%;margin-top:20px;">
+    <div style="height:20%;"></div>
+    <div dir="ltr" style="width:200px;">
+      <br/>
+      <span>
+        <label *ngIf="showLabel(1)" style="font-size:18px;font-weight:900;font-style:normal; background-color: #FFFFFF; color: #2199e8;">לא מקבל קצבה</label>
+        <label *ngIf="showLabel(0)" style="font-size:18px;font-weight:900;font-style:normal; background-color: #FFFFFF;color: #D14141;">מקבל קצבה</label>
+      </span>
+      <br/>
+      <md-slide-toggle style="font-size:24px;font-weight:900;font-style:normal; color:crimson" [checked]="checked()" [disabled]="disabled()"
+        (change)="changeData($event)">
+      </md-slide-toggle>
+    </div>
+    <div class="row" style="width:90%;" align="center">
+      <div class="colc-90 col-centered" align="center" *ngIf="showLabel(2)">
+        <label for="socilaFiles" class="btn btn-warning shadow">העלאת צילום אישור קבלת קצבה
+              <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+            </label>
+        <input appLoadImageData id="socilaFiles" type="file" accept="image/*" style="visibility:hidden;" (change)="change($event)">
+      </div>
+    </div>
+  </div>
+  <br/>
+  <div class="row row-centered" style="width:90%;height:20%;" align="center" dir="rtl">
+    <div class="col-xs-2 col-centered">
+      <button id="btnNext" class="custom-success button btn-round shadow" (click)="navigate(8)">
+        <i id="I2"
+            style="font-size:16px;font-weight:900;font-style:normal"
+            class="glyphicon glyphicon-triangle-left"></i>
+      </button>
+    </div>
+    <div class="col-xs-2 col-centered"></div>
+    <div class="col-xs-2 col-centered">
+      <button id="btnHelp" class="btn-help button btn-round shadow" (click)="navigate(0)">
+        <i id="I3" style="font-size:16px;font-weight:900;color:#2199e8;font-style:normal">?</i>
+      </button>
+    </div>
+    <div class="col-xs-2 col-centered"></div>
+    <div class="col-xs-2 col-centered">
+      <button id="btnPrevious" class="custom-success button btn-round shadow" (click)="navigate(5)">
+        <i id="I4" style="font-size:16px;font-weight:900;font-style:normal" class="glyphicon glyphicon-triangle-right"></i>
+      </button>
+    </div>
+  </div>
+</div>

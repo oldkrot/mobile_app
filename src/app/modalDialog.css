@@ -1,0 +1,107 @@
+body {
+  width: 100%
+}
+
+.dialog {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  padding: 5px;
+}
+
+.dialog.box {
+  left: 13%;
+  width: 80%;
+  border: solid;
+  border-width: 1px;
+  border-radius: 5px;
+}
+
+.dialog.title {
+  top: 150px;
+  height: 40px;
+  padding: 10px;
+  margin-bottom: 0px;
+  font-weight: bolder;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.dialog.text {
+  top: 190px;
+  padding-top: 10px;
+  margin-bottom: 0px;
+  height: 120px;
+  font-size: 15px;
+  text-align: center;
+  background-color: white;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+.dialog.buttons {
+  position: relative;
+  width: 130px;
+  height: 30px;
+  margin: 0px;
+  padding: 0px;
+  vertical-align: bottom;
+}
+
+.dialog.buttonsTable {
+  position: absolute;
+  top: 70px;
+  left: 10px;
+  width: 130px;
+  height: 30px;
+  margin: 0px;
+  padding: 0px;
+  vertical-align: bottom;
+  background-color: transparent;
+}
+
+.dialog.info.title {
+  color: white;
+  background-color: #2196F3;
+  border-color: #2196F3;
+}
+
+.dialog.info.text {
+  color: black;
+  border-color: #2196F3;
+}
+
+.dialog.alert.title {
+  color: white;
+  background-color: #f00;
+  border-color: #f00;
+}
+
+.dialog.alert.text {
+  color: black;
+  border-color: #f00;
+}
+
+.dialog.warning.title {
+  color: white;
+  background-color: #EF6C00;
+  border-color: #EF6C00;
+}
+
+.dialog.warning.text {
+  color: black;
+  border-color: #EF6C00;
+}
+
+.dialog.success.title {
+  color: white;
+  background-color: #36c565;
+  border-color: #36c565;
+}
+
+.dialog.success.text {
+  color: black;
+  border-color: #36c565;
+}
+

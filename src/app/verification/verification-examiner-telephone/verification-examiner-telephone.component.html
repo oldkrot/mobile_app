@@ -1,0 +1,41 @@
+<div style="margin-top:20px;height:100%;width:100%" align="center">
+  <div style="width:100%;height:80%;margin-top:20px;">
+    <div class="row" style="width:90%;" align="center">
+      <dx-data-grid id="gridContainer" [dataSource]="dataSource" (onContentReady)="onContentReady($event)" (onCellPrepared)="onCellPrepared($event)"
+        [rtlEnabled]="true">
+        <dxo-editing mode="form" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true">
+        </dxo-editing>
+        <dxo-paging [enabled]="false"></dxo-paging>
+        <dxi-column dataField="_telephoneType" caption="סוג טלפון" [width]="125">
+          <dxo-lookup [dataSource]="telephoneTypes" displayExpr="Name" valueExpr="Code">
+          </dxo-lookup>
+        </dxi-column>
+        <dxi-column dataField="_prefix" caption="קידומת"></dxi-column>
+        <dxi-column dataField="_number" caption="מספר"></dxi-column>
+        <!--         <dxo-editing mode="form" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true">
+        </dxo-editing> -->
+        <!--         <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true">
+        </dxo-editing> -->
+      </dx-data-grid>
+    </div>
+  </div>
+  <div class="row row-centered" style="width:90%;height:20%; margin-top:20px;" align="center" dir="rtl">
+    <div class="col-xs-2 col-centered">
+      <button id="btnNext" class="custom-success button btn-round shadow" (click)="navigate(4)">
+        <i id="I2" style="font-size:16px;font-weight:900;font-style:normal" class="glyphicon glyphicon-triangle-left"></i>
+      </button>
+    </div>
+    <div class="col-xs-2 col-centered"></div>
+    <div class="col-xs-2 col-centered">
+      <button id="btnHelp" class="btn-help button btn-round shadow" (click)="navigate(0)">
+        <i id="I3" style="font-size:16px;font-weight:900;color:#2199e8;font-style:normal">?</i>
+      </button>
+    </div>
+    <div class="col-xs-2 col-centered"></div>
+    <div class="col-xs-2 col-centered">
+      <button id="btnPrevious" class="custom-success button btn-round shadow" (click)="navigate(2)">
+        <i id="I4" style="font-size:16px;font-weight:900;font-style:normal" class="glyphicon glyphicon-triangle-right"></i>
+      </button>
+    </div>
+  </div>
+</div>

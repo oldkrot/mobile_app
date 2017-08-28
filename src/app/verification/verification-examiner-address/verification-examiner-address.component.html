@@ -1,0 +1,90 @@
+<form dir="rtl" style="margin-top:20px;height:100%;width:100%">
+  <div dir="rtl" style="margin-top:20px;height:100%;width:100%" align="center">
+    <div class="row" style="width:90%">
+      <div class="sel-wrap" id="citydiv">
+        <md-input-container>
+          <input mdInput placeholder="עיר" [formControl]="myControl" #autoCompleteInput [mdAutocomplete]="auto" [(ngModel)]="selectedValue.Name">
+
+        </md-input-container>
+        <md-autocomplete #auto="mdAutocomplete" name="acity" id="acity" style="width:100%; height:90%;" (onSelected)="inputChange($event)">
+          <md-option *ngFor="let c of filteredCities | async" [value]="c">
+            {{ c.Name }}
+          </md-option>
+        </md-autocomplete>
+      </div>
+    </div>
+    <div class="row" style="width:90%">
+      <div class="colc-40 col-centered">
+        <div class="textinput">
+          <md-input-container>
+            <input mdInput placeholder="רחוב" id="street" name="street" value="examinerAddress.Street" [(ngModel)]="examinerAddress.Street">
+          </md-input-container>
+        </div>
+      </div>
+      <div class="colc-40 col-centered">
+        <div class="textinput">
+          <md-input-container>
+            <input mdInput placeholder="מספר בית" id="houseNumber" name="houseNumber" value="examinerAddress.HouseNumber" [(ngModel)]="examinerAddress.HouseNumber">
+          </md-input-container>
+        </div>
+      </div>
+      <div class="colc-40 col-centered">
+        <div class="textinput">
+          <md-input-container>
+            <input mdInput placeholder="כניסה" id="entrance" name="entrance" value="examinerAddress.Entrance" [(ngModel)]="examinerAddress.Entrance">
+          </md-input-container>
+        </div>
+      </div>
+      <div class="colc-40 col-centered">
+        <div class="textinput">
+          <md-input-container>
+            <input mdInput placeholder="דירה" id="AppartmentNumber" name="AppartmentNumber" value="examinerAddress.AppartmentNumber"
+              [(ngModel)]="examinerAddress.AppartmentNumber">
+          </md-input-container>
+        </div>
+      </div>
+      <div class="colc-40 col-centered">
+        <div class="textinput">
+          <md-input-container>
+            <input mdInput placeholder="מיקוד" id="ZipCode" name="ZipCode" value="examinerAddress.ZipCode" [(ngModel)]="examinerAddress.ZipCode">
+          </md-input-container>
+        </div>
+      </div>
+      <div class="colc-40 col-centered">
+        <div class="textinput">
+          <md-input-container>
+            <input mdInput placeholder="ת.ד." id="Postbox" name="Postbox" value="examinerAddress.Postbox" [(ngModel)]="examinerAddress.Postbox">
+          </md-input-container>
+        </div>
+      </div>
+      <div class="colc-90 col-centered">
+        <div class="textinput">
+          <md-input-container>
+            <input mdInput placeholder="דוא''ל'" id="Email" name="Email" value="examinerAddress.Email" [(ngModel)]="examinerAddress.Email">
+          </md-input-container>
+        </div>
+      </div>
+    </div>
+    <div class="row row-centered" style="width:90%;height:20%;" align="center" dir="rtl">
+      <div class="col-xs-2 col-centered">
+        <button id="btnNext" class="custom-success button btn-round shadow" (click)="navigate(3)">
+        <i id="I2"
+            style="font-size:16px;font-weight:900;font-style:normal"
+            class="glyphicon glyphicon-triangle-left"></i>
+      </button>
+      </div>
+      <div class="col-xs-2 col-centered"></div>
+      <div class="col-xs-2 col-centered">
+        <button id="btnHelp" class="btn-help button btn-round shadow" (click)="navigate(0)">
+        <i id="I3" style="font-size:16px;font-weight:900;color:#2199e8;font-style:normal">?</i>
+      </button>
+      </div>
+      <div class="col-xs-2 col-centered"></div>
+      <div class="col-xs-2 col-centered">
+        <button id="btnPrevious" class="custom-success button btn-round shadow" (click)="navigate(1)">
+        <i id="I4" style="font-size:16px;font-weight:900;font-style:normal" class="glyphicon glyphicon-triangle-right"></i>
+      </button>
+      </div>
+    </div>
+  </div>
+</form>
