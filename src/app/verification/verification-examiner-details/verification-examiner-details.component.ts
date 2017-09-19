@@ -2,7 +2,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { VerificationNavigationService } from './../verification-navigation.service';
-import { UiData } from './../../help-data/ui-data';
+import {
+  UiData,
+  Examiner
+} from './../../help-data';
 import {
   BroadcasterService,
   UiDataService,
@@ -10,8 +13,8 @@ import {
   ExaminerDataService,
   VerificationDataService,
   ValidateService
-} from './../../services/index';
-import { Examiner } from './../../help-data/verifcation-data/examiner';
+} from './../../services';
+
 
 @Component({
   selector: 'app-verification-examiner-details',

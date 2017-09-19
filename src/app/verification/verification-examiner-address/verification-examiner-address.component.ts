@@ -11,14 +11,17 @@ import {
   CommonDataService,
   ExaminerDataService,
   VerificationDataService
-} from './../../services/index';
+} from './../../services';
 import { VerificationNavigationService } from './../verification-navigation.service';
 
-import { VerificationData } from './../../help-data/verifcation-data/verification-data';
-import { ExaminerAddress } from './../../help-data/verifcation-data/examiner-address';
-import { Examiner } from './../../help-data/verifcation-data/examiner';
-import { KeyValuePair, IKeyValuePair } from './../../help-data/key-value-pair';
-import { UiData } from './../../help-data/ui-data';
+import {
+  VerificationData,
+  ExaminerAddress,
+  KeyValuePair,
+  IKeyValuePair,
+  UiData
+} from './../../help-data';
+
 
 import { Observable } from 'rxjs/Observable';
 import { MdAutocompleteTrigger } from '@angular/material';

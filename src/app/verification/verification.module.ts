@@ -52,6 +52,7 @@ import { VerificationExaminerSocialComponent } from './verification-examiner-soc
 import { VerificationNavigationService } from './verification-navigation.service';
 import { VerificationExaminerTelephoneComponent } from './verification-examiner-telephone/verification-examiner-telephone.component';
 import { VerificationExaminerInstitutesComponent } from './verification-examiner-institutes/verification-examiner-institutes.component';
+import { VerificationTelephoneDetailsComponent } from './verification-telephone-details/verification-telephone-details.component';
 
 const VerificationRoutes: Routes = [
   {
@@ -138,7 +139,8 @@ const VerificationRoutes: Routes = [
     VerificationExaminerAddressComponent,
     VerificationNavigationComponent,
     VerificationExaminerTelephoneComponent,
-    VerificationExaminerInstitutesComponent],
+    VerificationExaminerInstitutesComponent,
+    VerificationTelephoneDetailsComponent],
   exports: [
     VerificationComponent,
     VerificationExaminerDetailsComponent,

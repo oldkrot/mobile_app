@@ -8,19 +8,25 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 
 import { VerificationNavigationService } from './../verification-navigation.service';
-import { VerificationData } from './../../help-data/verifcation-data/verification-data';
-import { ExaminerBank } from './../../help-data/verifcation-data/examiner-bank';
-import { Examiner } from './../../help-data/verifcation-data/examiner';
-import { KeyValuePair, IKeyValuePair } from './../../help-data/key-value-pair';
-import { UiData } from './../../help-data/ui-data';
-import { Branch, IBranch } from './../../help-data/branch';
+import {
+  VerificationData,
+  ExaminerBank,
+  KeyValuePair,
+  IKeyValuePair,
+  UiData,
+  Branch,
+  IBranch
+} from './../../help-data';
+
+// import { Examiner } from './../../help-data/verifcation-data/examiner';
+
 import {
   BroadcasterService,
   UiDataService,
   CommonDataService,
   ExaminerDataService,
   VerificationDataService
-} from './../../services/index';
+} from './../../services';
 import { Observable } from 'rxjs/Observable';
 import { MdAutocompleteTrigger } from '@angular/material';
 import * as Rx from 'rxjs/Rx';

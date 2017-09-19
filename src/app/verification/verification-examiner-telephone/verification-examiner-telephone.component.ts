@@ -7,17 +7,21 @@ import {
   CommonDataService,
   ExaminerDataService,
   VerificationDataService
-} from './../../services/index';
+} from './../../services';
 
-import { UiData } from './../../help-data/ui-data';
+import {
+  UiData,
+  ExaminerTelephone,
+  Telephone,
+  ITelephone,
+  KeyValuePair,
+  IKeyValuePair
+} from './../../help-data';
 
-
-
-import { ExaminerTelephone } from './../../help-data/verifcation-data/examiner-telephone';
 import { Subscription } from 'rxjs/Subscription';
 import { VerificationNavigationService } from './../verification-navigation.service';
-import { Telephone, ITelephone } from './../../help-data/telephone';
-import { KeyValuePair, IKeyValuePair } from './../../help-data/key-value-pair';
+import { DxDataGridComponent } from 'devextreme-angular';
+
 
 @Component({
   selector: 'app-verification-examiner-telephone',
@@ -27,9 +31,13 @@ import { KeyValuePair, IKeyValuePair } from './../../help-data/key-value-pair';
 export class VerificationExaminerTelephoneComponent implements OnInit {
   telephoneTypes: KeyValuePair[];
   examinerTelephone: ExaminerTelephone;
+  selectedTelephone: Telephone;
   private uiData: UiData;
   private message: any[] = [];
   dataSource: Telephone[];
+  @ViewChild(DxDataGridComponent)
+  grid: DxDataGridComponent;
+
   constructor(private uiDataService: UiDataService,
     private common: CommonDataService,
     private verification: VerificationDataService,
@@ -96,5 +104,13 @@ export class VerificationExaminerTelephoneComponent implements OnInit {
       const base = 'verification'; // this.route.routeConfig.path;
       this.navigation.navigate(data, base);
     }
+  }
+
+  onEdit(gridItem): void {
+    this.selectedTelephone = gridItem.data;
+  }
+
+  onTelphoneChanged($event): void {
+    this.grid.instance.refresh();
   }
 }

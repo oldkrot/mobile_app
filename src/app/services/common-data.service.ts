@@ -13,6 +13,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import { IKeyValuePair } from './../help-data/key-value-pair';
 import { IBranch } from './../help-data/branch';
+import { Params } from '@angular/router';
 
 @Injectable()
 export class CommonDataService {
@@ -27,7 +28,8 @@ export class CommonDataService {
     this.headers.append('Content-Type', 'application/json');
     this.headers.append('Accept', 'application/json');
     this.headers.append('Access-Control-Allow-Origin', '*');
-
+    this.headers.append('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
+    this.headers.append('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token');
   }
 
 
@@ -54,5 +56,11 @@ export class CommonDataService {
   private handleError(error: Response) {
     console.error(error);
     return Observable.throw(error.json || 'Server Error');
+  }
+  Decode(param: Params): any {
+    return this.httpClient.post(this.uiData.serverIP + '/decode',
+      { User: param['guidanceexaminerid'], Password: '' },
+      { headers: this.headers })
+      .catch(this.handleError);
   }
 }

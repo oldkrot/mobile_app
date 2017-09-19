@@ -1,3 +1,4 @@
+import { QueryStringParams } from './query-string-params';
 import { DialogData } from './dialog-data';
 export interface IUiData {
   serverIP: string;
@@ -13,6 +14,7 @@ export interface IUiData {
   IsGuidanceExaminer: boolean;
   IsNeedCheckTransport: boolean;
   IsShowAnswerButtons: boolean;
+  searchParameters: QueryStringParams;
 }
 export class UiData implements IUiData {
   serverIP: string;
@@ -28,6 +30,7 @@ export class UiData implements IUiData {
   IsGuidanceExaminer: boolean;
   IsNeedCheckTransport: boolean;
   IsShowAnswerButtons: boolean;
+  searchParameters: QueryStringParams;
   constructor() {
     this.currentUserScreen = '';
     this.serverIP = 'http://localhost/WebAPI/api';
@@ -50,5 +53,6 @@ export class UiData implements IUiData {
     this.IsGuidanceExaminer = false;
     this.IsNeedCheckTransport = false;
     this.IsShowAnswerButtons = true;
+    this.searchParameters = new QueryStringParams();
   }
 }

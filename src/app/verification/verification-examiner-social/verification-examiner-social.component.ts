@@ -1,18 +1,20 @@
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  BroadcasterService,
+  VerificationDataService,
+  CommonDataService,
+  UiDataService
+} from './../../services';
 
+import {
+  UiData,
+  ExaminerSocialInsurance,
+  VerificationData
+} from './../../help-data';
 
-import { UiData } from './../../help-data/ui-data';
-import { BroadcasterService } from './../../services/broadcaster.service';
-import { VerificationDataService } from './../../services/verification-data.service';
-import { CommonDataService } from './../../services/common-data.service';
-import { UiDataService } from './../../services/ui-data.service';
-import { VerificationData } from './../../help-data/verifcation-data/verification-data';
 import { LoadImageDataDirective } from './../../directives/load-image-data.directive';
-
-
-import { ExaminerSocialInsurance } from './../../help-data/verifcation-data/examiner-social-insurance';
 import { Subscription } from 'rxjs/Subscription';
 import { VerificationNavigationService } from './../verification-navigation.service';
 
