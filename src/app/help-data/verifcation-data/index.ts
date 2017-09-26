@@ -5,3 +5,4 @@ export * from './examiner-social-insurance';
 export * from './examiner-telephone';
 export * from './examiner';
 export * from './verification-data';
+export * from './examiner-verify-details';

@@ -49,17 +49,8 @@ export class VerificationExaminerDetailsComponent implements OnInit {
     return day !== 6;
   }
   ngOnInit() {
-    // TODO Remove
     this.uiData.currentVerificationScreen = 1;
-    this.examiner.BirthDate = '1957-10-26T00:00:00';
-    this.examiner.ExaminerId = 1509;
-    this.examiner.FirstName = 'אהרונה';
-    this.examiner.IdentityCard = '011514338';
-    this.examiner.LastName = 'קורמן -גבריהו';
-    this.examiner.SexId = 1;
-    this.verification.VerificationData().examiner = this.examiner;
-    // ***********************************
-    //  this.examiner = this.verification.VerificationData().examiner;
+    this.examiner = this.verification.VerificationData().examiner;
 
   }
   navigate(data: number) {

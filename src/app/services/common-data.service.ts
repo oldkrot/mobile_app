@@ -58,7 +58,7 @@ export class CommonDataService {
     return Observable.throw(error.json || 'Server Error');
   }
   Decode(param: Params): any {
-    return this.httpClient.post(this.uiData.serverIP + '/decode',
+    return this.httpClient.post(this.uiData.serverIP + '/AngularDecode',
       { User: param['guidanceexaminerid'], Password: '' },
       { headers: this.headers })
       .catch(this.handleError);

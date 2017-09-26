@@ -52,8 +52,6 @@ export class VerificationExaminerTelephoneComponent implements OnInit {
   }
 
   ngOnInit() {
-    // TODO Remove
-    this.verification.VerificationData().examiner.ExaminerId = 1509;
     this.uiData.currentVerificationScreen = 3;
     this.common.getTelephoneType()
       .subscribe(data => this.telephoneTypes = <KeyValuePair[]>data['TelephoneTypes'],

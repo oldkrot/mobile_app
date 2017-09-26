@@ -56,8 +56,6 @@ export class VerificationExaminerAddressComponent implements OnInit {
   }
 
   ngOnInit() {
-    // TODO Remove
-    this.verification.VerificationData().examiner.ExaminerId = 1509;
     this.uiData.currentVerificationScreen = 2;
     this.filteredCities = this.myControl.valueChanges
       .startWith(null)

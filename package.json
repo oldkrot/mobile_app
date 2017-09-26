@@ -64,5 +64,12 @@
     "typescript": "~2.3.3",
     "webpack": "^3.5.5",
     "webpack-dev-server": "^2.7.1"
+  },
+  " contributes.keybindings": {
+    "mac": "<keyboard shortcut for mac>",
+    "linux": "<keyboard shortcut for linux",
+    "win": "<keyboard shortcut for windows",
+    "key": "<default keyboard shortcut>",
+    "command": "<name of the command in VS Code"
   }
 }

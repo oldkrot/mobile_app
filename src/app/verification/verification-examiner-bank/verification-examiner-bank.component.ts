@@ -70,9 +70,6 @@ export class VerificationExaminerBankComponent implements OnInit {
   }
 
   ngOnInit() {
-    // TODO Remove
-
-    this.verification.VerificationData().examiner.ExaminerId = 1509;
     this.uiData.currentVerificationScreen = 4;
     this.filteredBanks = this.bankControl.valueChanges
       .startWith(null)

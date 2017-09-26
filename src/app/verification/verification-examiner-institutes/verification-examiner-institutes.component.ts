@@ -48,9 +48,6 @@ export class VerificationExaminerInstitutesComponent implements OnInit {
   }
 
   ngOnInit() {
-    // TODO Remove
-    this.verification.VerificationData().examiner.ExaminerId = 1509;
-    // End Remove
     this.uiData.currentVerificationScreen = 5;
     this.common.getInsitutes()
       .subscribe(data => this.institutes = data,

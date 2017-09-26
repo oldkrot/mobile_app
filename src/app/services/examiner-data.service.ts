@@ -43,4 +43,20 @@ export class ExaminerDataService {
     console.error(error);
     return Observable.throw(error.json || 'Server Error');
   }
+  getExaminerDetails(examiner: string, moed: number): Observable<any> {
+    // tslint:disable-next-line:prefer-const
+    let RequestData = { Key: examiner, Moed: moed, QuestID: '' };
+    return this.httpClient.post(this.uiData.serverIP + '/examinerdetails',
+      RequestData,
+      { headers: this.headers })
+      .catch(this.handleError);
+  }
+  getGuidanceExaminerDetails(inputData: string): Observable<any> {
+    // tslint:disable-next-line:prefer-const
+    let data = { key: inputData };
+    return this.httpClient.post(this.uiData.serverIP + '/GuidanceExaminerDetails',
+      data,
+      { headers: this.headers })
+      .catch(this.handleError);
+  }
 }
