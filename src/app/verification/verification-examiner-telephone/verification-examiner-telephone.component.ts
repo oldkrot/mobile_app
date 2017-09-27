@@ -1,4 +1,3 @@
-
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
@@ -6,9 +5,11 @@ import {
   UiDataService,
   CommonDataService,
   ExaminerDataService,
-  VerificationDataService
+  VerificationDataService,
+  ValidateService
 } from './../../services';
-
+import { ValidateVerificationDataService } from './../validate-verification-data.service';
+import { TS } from 'typescript-linq';
 import {
   UiData,
   ExaminerTelephone,
@@ -45,7 +46,9 @@ export class VerificationExaminerTelephoneComponent implements OnInit {
     private examinerData: ExaminerDataService,
     private router: Router,
     private route: ActivatedRoute,
-    private navigation: VerificationNavigationService) {
+    private navigation: VerificationNavigationService,
+    private validator: ValidateService,
+    private verificationValidator: ValidateVerificationDataService) {
     this.uiData = this.uiDataService.uiData();
     this.examinerTelephone = this.verification.VerificationData().examinerTelephone;
     this.telephoneTypes = new Array<KeyValuePair>();
@@ -95,12 +98,47 @@ export class VerificationExaminerTelephoneComponent implements OnInit {
       }
     }
   }
+  RemoveEmptyData() {
+    let enumerator: TS.Linq.Enumerator<Telephone>;
+    enumerator = new TS.Linq.Enumerator<Telephone>(this.examinerTelephone.Telephones);
+    let query_result: Telephone[];
+    query_result = enumerator.where(item => this.validator.IsNullOrEmpty(item._prefix)
+      || this.validator.IsNullOrEmpty(item._number)
+      || item._telephoneType === undefined).toArray();
+    if (query_result.length > 0) {
+      for (let i = 0; i < query_result.length; i++) {
+        let element: Telephone;
+        element = query_result[i];
+        let index: number;
+        index = this.examinerTelephone.Telephones.indexOf(element, 0);
+        if (index > -1) {
+          this.examinerTelephone.Telephones.splice(index, 1);
+        }
+      }
+    }
+  }
   navigate(data: number) {
     if (data === 0) {
       // help
     } else {
-      const base = 'verification'; // this.route.routeConfig.path;
-      this.navigation.navigate(data, base);
+      this.RemoveEmptyData();
+      let is_continue: boolean;
+      is_continue = true;
+      if (this.examinerTelephone.isChanged) {
+        let validate_result: string;
+        validate_result = this.verificationValidator.ValidateExaminerTelephones(this.examinerTelephone);
+        if (!this.validator.IsNullOrEmpty(validate_result)) {
+          is_continue = false;
+          // TODO message
+        }
+      }
+      if (is_continue) {
+        this.verification.VerificationData().examinerTelephone = this.examinerTelephone;
+        this.broadcaster.broadcast('savestate');
+        const base = 'verification'; // this.route.routeConfig.path;
+        this.navigation.navigate(data, base);
+      }
+
     }
   }
 
@@ -110,5 +148,11 @@ export class VerificationExaminerTelephoneComponent implements OnInit {
 
   onTelphoneChanged($event): void {
     this.grid.instance.refresh();
+  }
+  onRowInserted($event): void {
+    this.examinerTelephone.isChanged = true;
+  }
+  onRowUpdated($event): void {
+    this.examinerTelephone.isChanged = true;
   }
 }

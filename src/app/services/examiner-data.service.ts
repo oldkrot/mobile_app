@@ -8,8 +8,10 @@ import {
   ExaminerAddress,
   ExaminerBank,
   ExaminerTelephone,
-  ExaminerInstitutes
+  ExaminerInstitutes,
+  VerificationData
 } from './../help-data';
+import 'rxjs/add/operator/timeout';
 
 @Injectable()
 export class ExaminerDataService {
@@ -57,6 +59,15 @@ export class ExaminerDataService {
     return this.httpClient.post(this.uiData.serverIP + '/GuidanceExaminerDetails',
       data,
       { headers: this.headers })
+      .catch(this.handleError);
+  }
+  saveVerificationData(value: VerificationData): Observable<any> {
+    let RequestData: string;
+    RequestData = JSON.stringify(value);
+    return this.httpClient.post(this.uiData.serverIP + '/UploadData',
+      RequestData,
+      { headers: this.headers })
+      .timeout(600000)
       .catch(this.handleError);
   }
 }

@@ -25,11 +25,13 @@ import {
   UiDataService,
   CommonDataService,
   ExaminerDataService,
-  VerificationDataService
+  VerificationDataService,
+  ValidateService
 } from './../../services';
 import { Observable } from 'rxjs/Observable';
 import { MdAutocompleteTrigger } from '@angular/material';
 import * as Rx from 'rxjs/Rx';
+import { ValidateVerificationDataService } from './../validate-verification-data.service';
 @Component({
   selector: 'app-verification-examiner-bank',
   templateUrl: './verification-examiner-bank.component.html',
@@ -56,7 +58,9 @@ export class VerificationExaminerBankComponent implements OnInit {
     private examinerData: ExaminerDataService,
     private router: Router,
     private route: ActivatedRoute,
-    private navigation: VerificationNavigationService) {
+    private navigation: VerificationNavigationService,
+    private validator: ValidateService,
+    private verificationValidator: ValidateVerificationDataService) {
     this.uiData = this.uiDataService.uiData();
     this.examinerBank = this.verification.VerificationData().examinerBank;
     this.selectedBank = new KeyValuePair();
@@ -152,8 +156,23 @@ export class VerificationExaminerBankComponent implements OnInit {
     if (data === 0) {
       // help
     } else {
-      const base = 'verification'; // this.route.routeConfig.path;
-      this.navigation.navigate(data, base);
+      let is_continue: boolean;
+      is_continue = true;
+      if (this.examinerBank.isChanged) {
+        let validation_result: string;
+        validation_result = this.verificationValidator.ValidateExaminerBank(this.examinerBank);
+        if (!this.validator.IsNullOrEmpty(validation_result)) {
+          is_continue = false;
+          // todo message
+        }
+      }
+      if (is_continue) {
+        this.verification.VerificationData().examinerBank = this.examinerBank;
+        this.broadcaster.broadcast('savestate');
+        const base = 'verification'; // this.route.routeConfig.path;
+        this.navigation.navigate(data, base);
+      }
+
     }
   }
   change($event) {

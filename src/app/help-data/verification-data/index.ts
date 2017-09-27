@@ -1,3 +1,4 @@
+import { Guidance } from './guidance';
 export * from './examiner-address';
 export * from './examiner-bank';
 export * from './examiner-institutes';
@@ -6,3 +7,4 @@ export * from './examiner-telephone';
 export * from './examiner';
 export * from './verification-data';
 export * from './examiner-verify-details';
+export * from './guidance';

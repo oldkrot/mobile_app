@@ -1,0 +1,26 @@
+<meta charset="windows-1255" />
+<div style="width:100%;height:80%;margin-top:20px;overflow-y:scroll;">
+  <div class="row" style="width:100%;height:60px;position:relative;top:40%">
+    <div class="colc-10 col-centered">
+      <input type="checkbox" [(ngModel)]="isChecked" style="vertical-align:central;width: 20px;height:20px">
+    </div>
+    <div class="colc-85 col-centered" style="font-size:large;color:white;font-weight:bolder;font-family:Arial;">הנני מצהיר/ה כי הפרטים שמסרתי נכונים</div>
+  </div>
+</div>
+<div class="row row-centered" style="width:90%;height:20%;" align="center" dir="rtl">
+  <div class="col-xs-2 col-centered">
+    <button id="btnNext" class="custom-success button btn-round shadow" (click)="navigate(20)">
+        <i id="I2"
+            style="font-size:16px;font-weight:900;font-style:normal"
+            class="glyphicon glyphicon-triangle-left"></i>
+      </button>
+  </div>
+  <div class="col-xs-2 col-centered"></div>
+  <div class="col-xs-2 col-centered"></div>
+  <div class="col-xs-2 col-centered"></div>
+  <div class="col-xs-2 col-centered">
+    <button id="btnPrevious" class="custom-success button btn-round shadow" (click)="navigate(7)">
+        <i id="I4" style="font-size:16px;font-weight:900;font-style:normal" class="glyphicon glyphicon-triangle-right"></i>
+      </button>
+  </div>
+</div>

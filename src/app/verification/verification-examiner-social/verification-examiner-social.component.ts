@@ -1,11 +1,11 @@
-
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   BroadcasterService,
   VerificationDataService,
   CommonDataService,
-  UiDataService
+  UiDataService,
+  ValidateService
 } from './../../services';
 
 import {
@@ -17,7 +17,7 @@ import {
 import { LoadImageDataDirective } from './../../directives/load-image-data.directive';
 import { Subscription } from 'rxjs/Subscription';
 import { VerificationNavigationService } from './../verification-navigation.service';
-
+import { ValidateVerificationDataService } from './../validate-verification-data.service';
 @Component({
   selector: 'app-verification-examiner-social',
   templateUrl: './verification-examiner-social.component.html',
@@ -32,7 +32,9 @@ export class VerificationExaminerSocialComponent implements OnInit, OnDestroy {
     private broadcaster: BroadcasterService,
     private router: Router,
     private route: ActivatedRoute,
-    private navigation: VerificationNavigationService) {
+    private navigation: VerificationNavigationService,
+    private validator: ValidateService,
+    private verificationValidator: ValidateVerificationDataService) {
     this.uiData = this.uiDataService.uiData();
     this.examinerSocialInsurance = this.verification.VerificationData().examinerSocialInsurance;
     this.Register();
@@ -93,35 +95,48 @@ export class VerificationExaminerSocialComponent implements OnInit, OnDestroy {
       // Modal
     } else {
       let is_continue: boolean;
-      is_continue = false;
-      is_continue = this.ValidateData();
-      if (is_continue === true) {
-        // const base: string = this.route.routeConfig.path;
+      is_continue = true;
+      if (this.examinerSocialInsurance.isChanged) {
+        is_continue = this.ValidateData();
+      }
+      if (is_continue) {
+        this.verification.VerificationData().examinerSocialInsurance = this.examinerSocialInsurance;
+        this.broadcaster.broadcast('savestate');
         const base = 'verification'; // this.route.routeConfig.path;
         this.navigation.navigate(data, base);
       }
     }
   }
   private ValidateData(): boolean {
-    // tslint:disable-next-line:prefer-const
     let result: boolean;
-    if (this.examinerSocialInsurance.isChanged === true) {
-      if (this.examinerSocialInsurance.IsSocialSecurityCoordination === true) {
-        if (this.examinerSocialInsurance.ImageData == null) {
-          result = false;
-        } else {
-          if (this.examinerSocialInsurance.ImageData.data.length === 0) {
-            result = false;
+    result = true;
+    let validate_result: string;
+    validate_result = this.verificationValidator.ValidateExaminerocialInsurance(this.examinerSocialInsurance);
+    if (!this.validator.IsNullOrEmpty(validate_result)) {
+      // todo show message
+      result = false;
+    }
+    /*     // tslint:disable-next-line:prefer-const
+        let result: boolean;
+        if (this.examinerSocialInsurance.isChanged === true) {
+          if (this.examinerSocialInsurance.IsSocialSecurityCoordination === true) {
+            if (this.examinerSocialInsurance.ImageData == null) {
+              result = false;
+            } else {
+              if (this.examinerSocialInsurance.ImageData.data.length === 0) {
+                result = false;
+              } else {
+                result = true;
+              }
+            }
           } else {
             result = true;
           }
+        } else {
+          result = true;
         }
-      } else {
-        result = true;
-      }
-    } else {
-      result = true;
-    }
+        return result;
+      } */
     return result;
   }
 }

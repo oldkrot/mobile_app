@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Injectable, Inject, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Injectable,
+  Inject,
+  ViewChild
+} from '@angular/core';
+
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
@@ -10,9 +16,11 @@ import {
   UiDataService,
   CommonDataService,
   ExaminerDataService,
-  VerificationDataService
+  VerificationDataService,
+  ValidateService
 } from './../../services';
 import { VerificationNavigationService } from './../verification-navigation.service';
+import { ValidateVerificationDataService } from './../validate-verification-data.service';
 
 import {
   VerificationData,
@@ -47,7 +55,9 @@ export class VerificationExaminerAddressComponent implements OnInit {
     private examinerData: ExaminerDataService,
     private router: Router,
     private route: ActivatedRoute,
-    private navigation: VerificationNavigationService) {
+    private navigation: VerificationNavigationService,
+    private validator: ValidateService,
+    private verificationValidator: ValidateVerificationDataService) {
     this.uiData = this.uiDataService.uiData();
     this.examinerAddress = this.verification.VerificationData().examinerAddress;
     this.selectedValue = new KeyValuePair();
@@ -74,8 +84,8 @@ export class VerificationExaminerAddressComponent implements OnInit {
   }
   completeFn(value: ExaminerAddress): void {
     if (value !== null && value !== undefined) {
-      // tslint:disable-next-line:prefer-const
-      let selectedCity: KeyValuePair = this.cities.find(c => c.Code === value.tCityId);
+      let selectedCity: KeyValuePair;
+      selectedCity = this.cities.find(c => c.Code === value.tCityId);
       if (selectedCity !== null && selectedCity !== undefined) {
         this.selectedValue = selectedCity;
         this.filterCity(selectedCity.Name);
@@ -123,7 +133,25 @@ export class VerificationExaminerAddressComponent implements OnInit {
     this.examinerAddress.isChanged = true;
   }
   navigate(data: number) {
-    const base = 'verification'; // this.route.routeConfig.path;
-    this.navigation.navigate(data, base);
+    if (data === 0) {
+      // help
+    } else {
+      let is_continue;
+      is_continue = true;
+      if (this.examinerAddress.isChanged) {
+        let validate_result: string;
+        validate_result = this.verificationValidator.ValidateExaminerAddress(this.examinerAddress);
+        if (!this.validator.IsNullOrEmpty(validate_result)) {
+          is_continue = false;
+          // todo message
+        }
+      }
+      if (is_continue) {
+        this.verification.VerificationData().examinerAddress = this.examinerAddress;
+        this.broadcaster.broadcast('savestate');
+        const base = 'verification'; // this.route.routeConfig.path;
+        this.navigation.navigate(data, base);
+      }
+    }
   }
 }

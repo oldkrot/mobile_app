@@ -27,11 +27,14 @@ export class VerificationNavigationService {
       case 5:
         display = '/institutes';
         break;
-      case 6:
-
-        break;
+      //     case 6:
+      //
+      //        break;
       case 7:
         display = '/social';
+        break;
+      case 8:
+        display = '/verify';
         break;
       default:
         break;

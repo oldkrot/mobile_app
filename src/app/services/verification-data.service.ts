@@ -4,7 +4,7 @@ import { Injectable, Inject, OnDestroy } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BroadcasterService } from './broadcaster.service';
 import { IStateOperations } from './../help-data/interfaces/istate-operations';
-import { VerificationData } from './../help-data/verifcation-data/verification-data';
+import { VerificationData } from './../help-data/verification-data/verification-data';
 
 /* import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -15,7 +15,7 @@ import { Observable } from 'rxjs/Observable';
 /* import 'rxjs/operator/delay';
 import 'rxjs/operator/mergeMap';
 import 'rxjs/operator/switchMap'; */
-import { ExaminerAddress } from './../help-data/verifcation-data/examiner-address';
+
 import { Subscription } from 'rxjs/Subscription';
 
 
@@ -46,7 +46,7 @@ export class VerificationDataService implements IStateOperations, OnDestroy {
     }
     return this.localData;
   }
-  Register() {
+  private Register() {
     this.subscription = this.broadcaster.on('savestate')
       .subscribe(message => {
         this.SaveState();

@@ -2,13 +2,13 @@
   <div style="width:100%;height:80%;margin-top:20px;">
     <div class="row" style="width:90%;" align="center">
       <dx-data-grid id="gridContainer" [dataSource]="dataSource" [hoverStateEnabled]="true" (onContentReady)="onContentReady($event)"
-        (onCellPrepared)="onCellPrepared($event)" (onSelectionChanged)="onTelphoneChanged($event)" [selection]="{ mode: 'single' }"
-        [rtlEnabled]="true">
+        (onCellPrepared)="onCellPrepared($event)" (onSelectionChanged)="onTelphoneChanged($event)" (onRowInserted)="onRowInserted($event)"
+        (onRowUpdated)="onRowUpdated($event)" [selection]="{ mode: 'single' }" [rtlEnabled]="true">
         <!--        <dxo-selection mode="single"></dxo-selection> -->
-        <dxo-editing mode="popup" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true">
-          <dxo-popup title="טלפון" [showTitle]="true" [width]="700" [height]="345" [position]="{ my: 'top', at: 'top', of: window }">
+        <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true">
+          <!--           <dxo-popup title="טלפון" [showTitle]="true" [width]="700" [height]="345" [position]="{ my: 'top', at: 'top', of: window }">
 
-          </dxo-popup>
+          </dxo-popup> -->
         </dxo-editing>
         <dxo-paging [enabled]="false"></dxo-paging>
         <dxi-column dataField="_telephoneType" caption="סוג טלפון" [width]="125">

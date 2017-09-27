@@ -58,7 +58,10 @@ export class WelcomeComponent implements OnInit {
   private InitGuidanceExaminerData(guidanceExaminer: string) {
     this.examinerService.getGuidanceExaminerDetails(guidanceExaminer)
       .subscribe(data => {
+        this.verification.VerificationData().guidance = data['Guidance'];
+        this.verification.SaveState();
         this.verification.VerificationData().examiner = data['Examiner'];
+        this.verification.SaveState();
         this.verification.VerificationData().examinerVerifyDetails = data['ExaminerVerifyDetails'];
         this.verification.SaveState();
         this.router.navigate(['verification']);

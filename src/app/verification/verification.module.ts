@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
@@ -50,9 +49,11 @@ import { VerificationExaminerAddressComponent } from './verification-examiner-ad
 import { VerificationNavigationComponent } from './verification-navigation/verification-navigation.component';
 import { VerificationExaminerSocialComponent } from './verification-examiner-social/verification-examiner-social.component';
 import { VerificationNavigationService } from './verification-navigation.service';
+import { ValidateVerificationDataService } from './validate-verification-data.service';
 import { VerificationExaminerTelephoneComponent } from './verification-examiner-telephone/verification-examiner-telephone.component';
 import { VerificationExaminerInstitutesComponent } from './verification-examiner-institutes/verification-examiner-institutes.component';
 import { VerificationTelephoneDetailsComponent } from './verification-telephone-details/verification-telephone-details.component';
+import { VerificationVerifyDataComponent } from './verification-verify-data/verification-verify-data.component';
 
 const VerificationRoutes: Routes = [
   {
@@ -78,9 +79,10 @@ const VerificationRoutes: Routes = [
       path: 'institutes',
       component: VerificationExaminerInstitutesComponent
     },
+
     {
-      path: 'details',
-      component: VerificationExaminerDetailsComponent
+      path: 'verify',
+      component: VerificationVerifyDataComponent
     },
     { path: '', redirectTo: 'details', pathMatch: 'full' }
     ]
@@ -140,7 +142,8 @@ const VerificationRoutes: Routes = [
     VerificationNavigationComponent,
     VerificationExaminerTelephoneComponent,
     VerificationExaminerInstitutesComponent,
-    VerificationTelephoneDetailsComponent],
+    VerificationTelephoneDetailsComponent,
+    VerificationVerifyDataComponent],
   exports: [
     VerificationComponent,
     VerificationExaminerDetailsComponent,
@@ -148,9 +151,12 @@ const VerificationRoutes: Routes = [
     VerificationExaminerAddressComponent,
     VerificationExaminerSocialComponent,
     VerificationNavigationComponent,
-    VerificationExaminerTelephoneComponent
+    VerificationExaminerTelephoneComponent,
+    VerificationVerifyDataComponent
   ],
-  providers: [VerificationNavigationService],
+  providers: [VerificationNavigationService,
+    ValidateVerificationDataService
+  ],
   bootstrap: [VerificationComponent]
 })
 export class VerificationModule { }

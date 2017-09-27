@@ -1,7 +1,8 @@
-
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { VerificationNavigationService } from './../verification-navigation.service';
+import { ValidateVerificationDataService } from './../validate-verification-data.service';
+
 import {
   UiData,
   Examiner
@@ -35,7 +36,8 @@ export class VerificationExaminerDetailsComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private navigation: VerificationNavigationService,
-    private validator: ValidateService) {
+    private validator: ValidateService,
+    private verificationValidator: ValidateVerificationDataService) {
     this.uiData = this.uiDataService.uiData();
     this.examiner = this.verification.VerificationData().examiner;
     // tslint:disable-next-line:prefer-const
@@ -57,8 +59,22 @@ export class VerificationExaminerDetailsComponent implements OnInit {
     if (data === 0) {
       // help
     } else {
-      const base = 'verification'; // this.route.routeConfig.path;
-      this.navigation.navigate(data, base);
+      let is_continue: boolean;
+      is_continue = true;
+      if (this.examiner.isChanged) {
+        let validate_result: string;
+        validate_result = this.verificationValidator.ValidateExaminerDetails(this.examiner);
+        if (!this.validator.IsNullOrEmpty(validate_result)) {
+          is_continue = false;
+          // todo message
+        }
+      }
+      if (is_continue) {
+        this.verification.VerificationData().examiner = this.examiner;
+        this.broadcaster.broadcast('savestate');
+        const base = 'verification'; // this.route.routeConfig.path;
+        this.navigation.navigate(data, base);
+      }
     }
   }
   changeModel() {

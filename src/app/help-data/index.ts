@@ -1,4 +1,4 @@
-export * from './verifcation-data';
+export * from './verification-data';
 export * from './branch';
 export * from './image-data';
 export * from './key-value-pair';

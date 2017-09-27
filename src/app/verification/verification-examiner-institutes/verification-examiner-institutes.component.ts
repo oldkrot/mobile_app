@@ -1,7 +1,10 @@
-
-
-import { Component, OnInit } from '@angular/core';
-import { Injectable, Inject, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Injectable,
+  Inject,
+  ViewChild
+} from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
@@ -12,15 +15,19 @@ import {
   UiDataService,
   CommonDataService,
   ExaminerDataService,
-  VerificationDataService
+  VerificationDataService,
+  ValidateService
 } from './../../services';
 import { VerificationNavigationService } from './../verification-navigation.service';
+import { ValidateVerificationDataService } from './../validate-verification-data.service';
+import { TS } from 'typescript-linq';
 import {
   UiData,
   VerificationData,
   ExaminerInstitutes,
   KeyValuePair,
-  IKeyValuePair
+  IKeyValuePair,
+  Institute
 } from './../../help-data';
 
 import { Observable } from 'rxjs/Observable';
@@ -31,6 +38,7 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./verification-examiner-institutes.component.css']
 })
 export class VerificationExaminerInstitutesComponent implements OnInit {
+
   institutes: KeyValuePair[];
   private uiData: UiData;
   private message: any[] = [];
@@ -42,7 +50,9 @@ export class VerificationExaminerInstitutesComponent implements OnInit {
     private examinerData: ExaminerDataService,
     private router: Router,
     private route: ActivatedRoute,
-    private navigation: VerificationNavigationService) {
+    private navigation: VerificationNavigationService,
+    private validator: ValidateService,
+    private verificationValidator: ValidateVerificationDataService) {
     this.uiData = this.uiDataService.uiData();
     this.examinerInstitute = this.verification.VerificationData().examinerInstitute;
   }
@@ -69,9 +79,67 @@ export class VerificationExaminerInstitutesComponent implements OnInit {
   changeModel() {
     this.examinerInstitute.isChanged = true;
   }
+  private RemoveEmptyData(): void {
+    let enumerator: TS.Linq.Enumerator<Institute>;
+    enumerator = new TS.Linq.Enumerator<Institute>(this.examinerInstitute.Institutes);
+    let query_result: Institute[];
+    query_result = enumerator.where(item => this.validator.IsNullOrEmpty(item.IMOHCode)
+      || item.StartDate === undefined).toArray();
+    if (query_result.length > 0) {
+      for (let i = 0; i < query_result.length; i++) {
+        let element: Institute;
+        element = query_result[i];
+        let index: number;
+        index = this.examinerInstitute.Institutes.indexOf(element, 0);
+        if (index > -1) {
+          this.examinerInstitute.Institutes.splice(index, 1);
+        }
+      }
+    }
+  }
   navigate(data: number) {
-    const base = 'verification'; // this.route.routeConfig.path;
-    this.navigation.navigate(data, base);
+    if (data === 0) {
+      // Help window
+    } else {
+      let is_coninue: boolean;
+      is_coninue = true;
+      if (this.examinerInstitute.isChanged) {
+        this.RemoveEmptyData();
+        is_coninue = this.ValidateData();
+      }
+      if (is_coninue) {
+        this.verification.VerificationData().examinerInstitute = this.examinerInstitute;
+        this.broadcaster.broadcast('savestate');
+        const base = 'verification'; // this.route.routeConfig.path;
+        this.navigation.navigate(data, base);
+      }
+    }
+
+  }
+  private ValidateEmptyData(): boolean {
+    let result: boolean;
+    result = true;
+    let enumerator: TS.Linq.Enumerator<Institute>;
+    enumerator = new TS.Linq.Enumerator<Institute>(this.examinerInstitute.Institutes);
+    let query_result: Institute[];
+    query_result = enumerator.where(item => this.validator.IsNullOrEmpty(item.IMOHCode)
+      || item.StartDate === undefined).toArray();
+    if (query_result.length > 0) {
+      // TODO message 'נא למלא תאריך תחילת עבודה'
+      result = false;
+    }
+    return result;
+  }
+  private ValidateData(): boolean {
+    let result: boolean;
+    result = true;
+    let validate_result: string;
+    validate_result = this.verificationValidator.ValidateExaminerInstitutes(this.examinerInstitute);
+    if (!this.validator.IsNullOrEmpty(validate_result)) {
+      // TODO show message
+      result = false;
+    }
+    return result;
   }
   onContentReady($event) {
     $event.component.columnOption('command:edit', {
