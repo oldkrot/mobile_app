@@ -84,6 +84,10 @@ const VerificationRoutes: Routes = [
       path: 'verify',
       component: VerificationVerifyDataComponent
     },
+    {
+      path: 'details',
+      component: VerificationExaminerDetailsComponent
+    },
     { path: '', redirectTo: 'details', pathMatch: 'full' }
     ]
   }

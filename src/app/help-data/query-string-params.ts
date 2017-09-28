@@ -1,20 +1,22 @@
 import { element } from 'protractor';
 import { Params } from '@angular/router';
 export class QueryStringParams {
-  private data: string;
-  examinerID: string;
+  data: string;
+  examinerid: string;
   moed: number;
   guidanceexaminerid: string;
+  embeddingid: number;
   originData: Params;
   constructor() {
     this.data = '';
     this.moed = 0;
+    this.embeddingid = 0;
     this.guidanceexaminerid = '';
-    this.examinerID = '';
+    this.examinerid = '';
   }
   static clone(source: QueryStringParams): QueryStringParams {
-    // tslint:disable-next-line:prefer-const
-    let res = new QueryStringParams();
+    let res: QueryStringParams;
+    res = new QueryStringParams();
     res.data = source.data;
     return res;
   }
@@ -23,37 +25,35 @@ export class QueryStringParams {
   }
   setData(value: string): void {
     this.data = value;
-    // tslint:disable-next-line:prefer-const
-    let data_params: string[] = this.data.split('&');
-    // TODO FIX
-    // if (data_params.length > 2) {
-    if (data_params.length > 1) {
-      for (let index = 0; index < data_params.length; index++) {
-        // tslint:disable-next-line:prefer-const
-        let element: string = data_params[index];
-        // tslint:disable-next-line:prefer-const
-        let element_array: string[] = element.split('=');
-        switch (index) {
-          case 0:
-            this.examinerID = element_array[1];
-            break;
-          case 1:
-            this.moed = parseInt(element_array[1], 10);
-            break;
-          case 2:
-            break;
-          default:
-            break;
+    let data_params: string[];
+    data_params = this.data.split('&');
+    let element: string;
+    let element_array: string[];
+    switch (data_params.length) {
+      case 1:
+        element = data_params[0];
+        element_array = element.split('=');
+        this.guidanceexaminerid = element_array[1];
+        break;
+      default:
+        for (let index = 0; index < data_params.length; index++) {
+          element = data_params[index];
+          element_array = element.split('=');
+          switch (index) {
+            case 0:
+              this.examinerid = element_array[1];
+              break;
+            case 1:
+              this.moed = parseInt(element_array[1], 10);
+              break;
+            case 2:
+              this.embeddingid = parseInt(element_array[1], 10);
+              break;
+            default:
+              break;
+          }
         }
-      }
-    }
-    // tslint:disable-next-line:one-line
-    else {
-      // tslint:disable-next-line:prefer-const
-      let element: string = data_params[0];
-      // tslint:disable-next-line:prefer-const
-      let element_array: string[] = element.split('=');
-      this.guidanceexaminerid = element_array[1];
+        break;
     }
   }
 }

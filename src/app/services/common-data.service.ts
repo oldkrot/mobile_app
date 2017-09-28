@@ -63,4 +63,15 @@ export class CommonDataService {
       { headers: this.headers })
       .catch(this.handleError);
   }
+  Encode(param: string): any {
+    return this.httpClient.post(this.uiData.serverIP + '/Encode',
+      { User: param, Password: '' },
+      { headers: this.headers })
+      .catch(this.handleError);
+  }
+  getKishurimAddress(): any {
+    // 1000 : KishurimAddress
+    return this.httpClient.get(this.uiData.serverIP + '/CommonData/1000', { headers: this.headers })
+      .catch(this.handleError);
+  }
 }
